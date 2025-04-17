@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>My Spring Boot App</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          padding: 20px;
+          background-color: #f4f4f4;
+        }
+
+        .container {
+          background-color: white;
+          padding: 20px;
+          border-radius: 8px;
+          max-width: 600px;
+          margin: auto;
+          box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        button {
+          padding: 10px 20px;
+          background-color: #008cff;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        pre {
+          background: #eee;
+          padding: 10px;
+          border-radius: 5px;
+          margin-top: 20px;
+          overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to My Spring Boot App</h1>
+    <button id="fetchBtn">Fetch Data</button>
+    <pre id="output"></pre>
+</div>
+
+<script>
+    document.getElementById('fetchBtn').addEventListener('click', () => {
+      fetch('/public/health') // Update this to your actual API endpoint
+        .then(response => {
+          if (!response.ok) throw new Error('Network response was not ok');
+          return response.json();
+        })
+        .then(data => {
+          document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+          document.getElementById('output').textContent = 'Error: ' + error.message;
+        });
+    });
+</script>
+</body>
+</html>
